@@ -1,12 +1,15 @@
+require("dotenv").config()
+
 const express = require('express')
 const app = express()
+const PORT = process.env.PORT || 3000
 app.set("view engine", "ejs")
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 const User = require("./models/models")
 
 const mongoose = require('mongoose')
-mongoose.connect("mongodb://127.0.0.1:27017/textbin", {
+mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
 })
@@ -58,4 +61,4 @@ app.get('/:id/duplicate', async (req, res) => {
     }
 })
 
-app.listen(3000)
+app.listen(PORT)
